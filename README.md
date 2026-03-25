@@ -78,7 +78,7 @@ Measures and compares:
 - Token counting uses `tiktoken` with the `cl100k_base` encoding (GPT-4 tokenizer)
 - Each URL is fetched fresh (no caching)
 - Chrome uses `--headless=new --dump-dom`
-- Plasmate uses `plasmate som --url <url> --format json`
+- Plasmate uses `plasmate fetch <url>` (outputs SOM JSON to stdout)
 - Memory measured via `/usr/bin/time -v` (Linux) or `command time -l` (macOS)
 
 ## Contributing
