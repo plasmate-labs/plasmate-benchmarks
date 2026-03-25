@@ -117,20 +117,20 @@ measure_plasmate() {
 
     if $IS_MACOS; then
         start=$(python3 -c "import time; print(time.time())")
-        command time -l plasmate som --url "$url" --format json > "$tmpfile" 2>/tmp/plasmate-time-stderr || true
+        command time -l plasmate fetch "$url" > "$tmpfile" 2>/tmp/plasmate-time-stderr || true
         end=$(python3 -c "import time; print(time.time())")
         elapsed=$(echo "$end - $start" | bc)
         mem_kb=$(grep "maximum resident set size" /tmp/plasmate-time-stderr 2>/dev/null | awk '{print $1}' || echo "0")
         mem_kb=$((mem_kb / 1024))
     elif $IS_LINUX; then
         start=$(python3 -c "import time; print(time.time())")
-        /usr/bin/time -v plasmate som --url "$url" --format json > "$tmpfile" 2>/tmp/plasmate-time-stderr || true
+        /usr/bin/time -v plasmate fetch "$url" > "$tmpfile" 2>/tmp/plasmate-time-stderr || true
         end=$(python3 -c "import time; print(time.time())")
         elapsed=$(echo "$end - $start" | bc)
         mem_kb=$(grep "Maximum resident set size" /tmp/plasmate-time-stderr 2>/dev/null | awk '{print $NF}' || echo "0")
     else
         start=$(python3 -c "import time; print(time.time())")
-        plasmate som --url "$url" --format json > "$tmpfile" 2>/dev/null || true
+        plasmate fetch "$url" > "$tmpfile" 2>/dev/null || true
         end=$(python3 -c "import time; print(time.time())")
         elapsed=$(echo "$end - $start" | bc)
         mem_kb=0
