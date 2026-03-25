@@ -40,7 +40,7 @@ while IFS= read -r url; do
     HTML=$(curl -sL --max-time 10 "$url" 2>/dev/null || echo "")
     [[ -z "$HTML" ]] && continue
 
-    SOM=$(plasmate som --url "$url" --format json 2>/dev/null || echo "")
+    SOM=$(plasmate fetch "$url" 2>/dev/null || echo "")
     [[ -z "$SOM" ]] && continue
 
     HTML_TOKENS=$(echo "$HTML" | python3 scripts/count-tokens.py)
