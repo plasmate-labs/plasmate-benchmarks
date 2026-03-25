@@ -50,7 +50,7 @@ while IFS= read -r url; do
     fi
 
     # Get SOM
-    SOM=$(plasmate som --url "$url" --format json 2>/dev/null || echo "")
+    SOM=$(plasmate fetch "$url" 2>/dev/null || echo "")
     if [[ -z "$SOM" ]]; then
         echo "  [$COUNT] SKIP $url (plasmate failed)"
         continue
