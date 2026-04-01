@@ -61,7 +61,9 @@ while IFS= read -r url; do
     SOM_TOKENS=$(echo "$SOM" | python3 scripts/count-tokens.py)
 
     if [[ "$SOM_TOKENS" -gt 0 ]]; then
-        RATIO=$(echo "scale=1; $HTML_TOKENS / $SOM_TOKENS" | bc)
+        # Use awk instead of bc — bc outputs bare decimals like .4 which are
+        # invalid JSON. awk printf always emits a leading zero (0.4).
+        RATIO=$(awk "BEGIN {printf \"%.1f\", $HTML_TOKENS / $SOM_TOKENS}")
     else
         RATIO="N/A"
     fi
